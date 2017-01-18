@@ -6,3 +6,7 @@ threadsafe: true
 handlers:
 - url: /.*
   script: request_client.app
+
+libraries:
+- name: numpy
+  version: "1.6.1"

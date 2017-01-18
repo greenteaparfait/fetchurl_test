@@ -20,6 +20,7 @@ URLS on App Engine
 import logging
 import urllib
 import json
+import numpy as np
 
 # [START urllib2-imports]
 import urllib2
@@ -68,20 +69,27 @@ class UrlPostHandler(webapp2.RequestHandler):
     def get(self):
         # [START urlfetch-post]
         
+        array = np.array([1,2,3]).tolist()
+        jsonlist = json.dumps(array) # Converting to str type
+        #logging.info(jsonlist)        
+        
         form_fields = {
             'first_name': 'Albert',
-            'last_name': 'Johnson',
+            'last_name': jsonlist,
         }
+        
         try:
             #form_data = urllib.urlencode(UrlPostHandler.form_fields)
-            form_data = json.dumps(form_fields)            
+            form_data = json.dumps(form_fields)   # Converting to str type
+            #logging.info(form_data)            
             headers = {'Content-Type': 'application/json'}
             result = urlfetch.fetch(
-                url='http://104.196.164.200/',
+                url='http://104.196.33.188/',
                 payload=form_data,
                 method=urlfetch.POST,
                 headers=headers)
             self.response.write(result.content)
+            #logging.info(result.content)
         except urlfetch.Error:
             logging.exception('Caught exception fetching url')
         # [END urlfetch-post]
