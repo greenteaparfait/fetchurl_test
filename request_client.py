@@ -88,7 +88,8 @@ class UrlPostHandler(webapp2.RequestHandler):
                 payload=form_data,
                 method=urlfetch.POST,
                 headers=headers)
-            self.response.write(result.content)
+            jsonreturn = json.loads(result.content)  # Converting to dic type
+            self.response.write(jsonreturn['result1'])
             #logging.info(result.content)
         except urlfetch.Error:
             logging.exception('Caught exception fetching url')
